@@ -646,7 +646,13 @@ export default function StudentsPage({ isSuper50 = false }) {
                 value={batch} onChange={(e) => setBatch(e.target.value)} id="students-batch-filter"
               >
                 <option value="">All Batches</option>
-                {filters.batches?.map(b => <option key={b} value={b}>{b}</option>)}
+                {filters.batches?.map(b => {
+                  let label = b;
+                  if (b === '2023') label = '2023-27';
+                  if (b === '2024') label = '2024-28';
+                  if (b === '2025') label = '2025-29';
+                  return <option key={b} value={b}>{label}</option>;
+                })}
               </select>
               <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
                 <ChevronDown size={14} />
@@ -714,7 +720,9 @@ export default function StudentsPage({ isSuper50 = false }) {
                           </div>
                         </td>
                         <td className="px-6 py-4 font-bold">{student.department}</td>
-                        <td className="px-6 py-4 font-bold">{student.batch}</td>
+                        <td className="px-6 py-4 font-bold">
+                          {student.batch === '2023' ? '2023-27' : student.batch === '2024' ? '2024-28' : student.batch === '2025' ? '2025-29' : student.batch}
+                        </td>
                         <td className="px-6 py-4 font-bold">
                           <div className="flex flex-col gap-1 items-start">
                             {student.mentor ? (
