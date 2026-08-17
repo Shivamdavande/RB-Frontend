@@ -816,19 +816,7 @@ export default function StudentsPage({ isSuper50 = false }) {
                                 <RefreshCw size={16} />
                               </button>
                             )}
-                            {(user?.role === 'admin' || user?.role === 'super50_admin') && (
-                              <button
-                                onClick={() => {
-                                  if (window.confirm('Are you sure you want to delete this student?')) {
-                                    dispatch(deleteStudent(student._id)).then(r => !r.error ? toast.success('Student deleted') : toast.error('Failed to delete student'));
-                                  }
-                                }}
-                                className="p-1.5 text-rose-500 hover:text-rose-700 bg-rose-500/10 rounded-lg border border-rose-500/20 transition-all shadow-sm flex items-center justify-center"
-                                title="Delete Student"
-                              >
-                                <Trash2 size={16} />
-                              </button>
-                            )}
+
                           </div>
                         </td>
                       </motion.tr>
