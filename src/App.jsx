@@ -381,8 +381,8 @@ function AppRoutes({ theme, toggleTheme }) {
       } />
 
       {/* Default route */}
-      <Route path="/" element={<LandingPage />} />
-      <Route path="*" element={<Navigate to="/" replace />} />
+      <Route path="/" element={<Navigate to="/login" replace />} />
+      <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   );
 }
