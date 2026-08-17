@@ -29,7 +29,7 @@ export default function GeneralFormsSection() {
   const fetchActiveForms = async () => {
     try {
       const res = await api.get('/general-forms/active');
-      setActiveForms(res.data.data);
+      setActiveForms(res.data.data || []);
     } catch (err) {
       console.error('Failed to load active forms:', err);
     } finally {
