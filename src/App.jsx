@@ -43,6 +43,7 @@ import FacultyTasksPage from './pages/faculty/FacultyTasksPage';
 import CallingTrackerPage from './pages/admin/CallingTrackerPage';
 
 import StudentPlacementDashboard from './pages/student/StudentPlacementDashboard';
+import StudentAttendancePage from './pages/student/StudentAttendancePage';
 import ProjectDashboard from './pages/student/ProjectDashboard';
 import ProjectDetails from './pages/student/ProjectDetails';
 import PodAIMarksUploadPage from './pages/admin/PodAIMarksUploadPage';
@@ -198,6 +199,9 @@ function AppRoutes({ theme, toggleTheme }) {
         } />
         <Route path="/student/amcat" element={
           <RoleGuard allowed={['student']}><StudentAMCATPage /></RoleGuard>
+        } />
+        <Route path="/student/attendance" element={
+          <RoleGuard allowed={['student']}><StudentAttendancePage /></RoleGuard>
         } />
         <Route path="/student/mst" element={
           <RoleGuard allowed={['student']}><StudentMSTPage /></RoleGuard>
