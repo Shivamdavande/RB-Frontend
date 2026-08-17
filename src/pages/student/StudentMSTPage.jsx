@@ -215,7 +215,8 @@ const StudentMSTPage = () => {
                       </div>
                     );
                   })
-                )()}
+                })()
+              )}
               </motion.div>
             </AnimatePresence>
           </div>
