@@ -21,7 +21,9 @@ export default function LeaderboardPage({ limit }) {
     dispatch(fetchLeaderboard({ department: dept || undefined }));
   }, [dispatch, dept]);
 
-  const filtered = leaderboard.filter(
+  const safeLeaderboard = leaderboard || [];
+
+  const filtered = safeLeaderboard.filter(
     (s) => {
       const matchSearch = search ? (s.name.toLowerCase().includes(search.toLowerCase()) || s.enrollmentNumber.toLowerCase().includes(search.toLowerCase())) : true;
       const matchBatch = batch ? s.batch === batch : true;
@@ -31,8 +33,8 @@ export default function LeaderboardPage({ limit }) {
 
   const displayLimit = typeof limit === 'number' ? limit : 10;
   const displayed = filtered.slice(0, displayLimit);
-  const departments = [...new Set(leaderboard.map((s) => s.department))].filter(Boolean);
-  const batches = [...new Set(leaderboard.map((s) => s.batch))].filter(Boolean);
+  const departments = [...new Set(safeLeaderboard.map((s) => s.department))].filter(Boolean);
+  const batches = [...new Set(safeLeaderboard.map((s) => s.batch))].filter(Boolean);
 
   return (
     <div id="leaderboard" className="p-4 md:p-8 max-w-6xl mx-auto space-y-12">
