@@ -15,7 +15,7 @@ export default function RegisterPage() {
     name: '',
     email: '',
     password: '',
-    department: '',
+    department: 'Computer Science',
     role: 'teacher', // default to teacher
   });
   const [step, setStep] = useState(1);
@@ -197,29 +197,7 @@ export default function RegisterPage() {
               </div>
             </div>
 
-            {/* Department */}
-            <div style={{ marginBottom: 16 }}>
-              <label style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: 6 }}>
-                Department
-              </label>
-              <div style={{ position: 'relative' }}>
-                <Building size={16} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
-                <select
-                  className="w-full bg-[var(--bg-input)] border border-[var(--border-light)] rounded-xl py-3 pl-10 pr-4 text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/20 focus:border-[var(--primary)] transition-all shadow-sm appearance-none"
-                  style={{ paddingLeft: 40, appearance: 'none' }}
-                  value={form.department}
-                  onChange={(e) => setForm({ ...form, department: e.target.value })}
-                  required
-                >
-                  <option value="" disabled>Select Department</option>
-                  <option value="Computer Science">Computer Science</option>
-                  <option value="Information Technology">Information Technology</option>
-                  <option value="Electronics">Electronics</option>
-                  <option value="Mechanical">Mechanical</option>
-                  <option value="Civil">Civil</option>
-                </select>
-              </div>
-            </div>
+
 
             {/* Role */}
             <div style={{ marginBottom: 16 }}>
