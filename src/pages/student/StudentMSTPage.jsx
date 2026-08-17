@@ -137,9 +137,32 @@ const StudentMSTPage = () => {
                 {scoreEntries.length === 0 ? (
                   <p className="text-sm text-[var(--text-secondary)]">No subject scores available in this report.</p>
                 ) : (
-                  scoreEntries.map(([subject, score], idx) => {
-                    const numericScore = Number(score);
-                    const isTotal = subject.toLowerCase().includes('total');
+                  (() => {
+                    let totalMaxMarks = 0;
+                    scoreEntries.forEach(([subject, score]) => {
+                      const numericScore = Number(score);
+                      const isTotal = subject.toLowerCase().includes('total');
+                      const isIdKey = subject.toLowerCase().includes('id') || subject.toLowerCase().includes('enrollment') || subject.toLowerCase().includes('roll');
+                      
+                      if (!isTotal && !isIdKey && !isNaN(numericScore)) {
+                        const testNameLower = (activeResult?.testName || '').toLowerCase();
+                        const isCrt = subject.toLowerCase().includes('crt') || subject.toLowerCase().includes('aptitude');
+                        let maxMarks = 100;
+                        if (!isCrt) {
+                          if (testNameLower.includes('mst-1') || testNameLower.includes('mst 1') || testNameLower.includes('mst1')) {
+                            maxMarks = 28;
+                          } else if (testNameLower.includes('mst-2') || testNameLower.includes('mst 2') || testNameLower.includes('mst2')) {
+                            maxMarks = 42;
+                          }
+                        }
+                        totalMaxMarks += maxMarks;
+                      }
+                    });
+
+                    return scoreEntries.map(([subject, score], idx) => {
+                      const numericScore = Number(score);
+                      const isTotal = subject.toLowerCase().includes('total');
+
                     
                     const testNameLower = (activeResult?.testName || '').toLowerCase();
                     const isCrt = subject.toLowerCase().includes('crt') || subject.toLowerCase().includes('aptitude');
@@ -152,8 +175,12 @@ const StudentMSTPage = () => {
                       }
                     }
                     
+                    if (isTotal) {
+                      maxMarks = totalMaxMarks;
+                    }
+                    
                     const isIdKey = subject.toLowerCase().includes('id') || subject.toLowerCase().includes('enrollment') || subject.toLowerCase().includes('roll');
-                    const isPercentage = !isTotal && !isIdKey && !isNaN(numericScore) && numericScore <= maxMarks && numericScore >= 0;
+                    const isPercentage = !isIdKey && !isNaN(numericScore) && numericScore <= maxMarks && numericScore >= 0;
                     
                     return (
                       <div 
@@ -180,7 +207,7 @@ const StudentMSTPage = () => {
                             <span className="font-black text-lg text-[var(--text-primary)]">
                               {score}
                             </span>
-                            {!isTotal && !isIdKey && !isNaN(numericScore) && (
+                            {!isIdKey && !isNaN(numericScore) && (
                               <span className="text-[10px] text-[var(--text-secondary)] font-bold ml-1">/ {maxMarks}</span>
                             )}
                           </div>
@@ -188,7 +215,7 @@ const StudentMSTPage = () => {
                       </div>
                     );
                   })
-                )}
+                )()}
               </motion.div>
             </AnimatePresence>
           </div>
