@@ -70,7 +70,7 @@ export default function SelectionFormSection() {
   const fetchSettingsAndSubmissionStatus = async () => {
     try {
       const settingsRes = await api.get('/selection-form/settings');
-      setFormSettings(settingsRes.data.data);
+      setFormSettings(settingsRes.data.data || { formEnabled: false, startDate: '', endDate: '' });
     } catch (err) {
       console.error('Failed to load settings:', err);
     }
